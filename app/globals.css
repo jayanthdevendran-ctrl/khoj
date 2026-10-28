@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ink dark:bg-night dark:text-paper font-body antialiased;
+}
+
+/* Primarily dark blue */
+.dark body {
+  background: radial-gradient(1100px 520px at 50% -8%, #17408f 0%, #0d2252 45%, #0A1A3A 100%) fixed;
+  background-color: #0A1A3A;
+}
+.dark .bg-mist { background-color: rgba(255, 255, 255, 0.1); }
+.dark .border-line { border-color: rgba(255, 255, 255, 0.14); }
+.dark .divide-line > :not([hidden]) ~ :not([hidden]) { border-color: rgba(255, 255, 255, 0.12); }
+.dark .shadow-card { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px -10px rgba(0, 0, 0, 0.5); }
+
+/* Comfortable tap targets on phones */
+@media (max-width: 767px) {
+  button, [role="button"], a { -webkit-tap-highlight-color: transparent; }
+  input, select, textarea { font-size: 16px; } /* stops iOS zooming into fields */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background-color: theme("colors.gold.soft");
+  color: theme("colors.ink");
+}
+
+/* Focus visibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid theme("colors.teal.DEFAULT");
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(18, 23, 43, 0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.dark .dot-grid {
+  background-image: radial-gradient(circle, rgba(246, 247, 242, 0.09) 1px, transparent 1px);
+}

@@ -6,6 +6,7 @@ import NavigationBar from "@/components/NavigationBar";
 import NamePrompt from "@/components/NamePrompt";
 import ScanQrButton from "@/components/ScanQrButton";
 import { ProjectDataProvider } from "@/lib/project-data";
+import { Analytics } from "@vercel/analytics/next";
 
 const display = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", weight: ["500", "600", "700"] });
 const body = Inter({ subsets: ["latin"], variable: "--font-body" });
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </VisitorProvider>
         </ProjectDataProvider>
+        <Analytics />
       </body>
     </html>
   );

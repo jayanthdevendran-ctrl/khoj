@@ -11,6 +11,7 @@
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/supabase-js": "^2.45.0",
+    "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "fflate": "^0.8.3",
     "jsqr": "^1.4.0",

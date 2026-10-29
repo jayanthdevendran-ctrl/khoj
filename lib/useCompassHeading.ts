@@ -112,12 +112,19 @@ export function useCompassHeading() {
       return;
     }
     const DOE = (window as any).DeviceOrientationEvent;
+    const onGranted = () => {
+      setNeedsPermission(false);
+      listen();
+    };
+    window.addEventListener("khoj:compass-granted", onGranted);
     if (DOE && typeof DOE.requestPermission === "function") {
-      setNeedsPermission(true); // iPhone: wait for a tap
+      if ((window as any).__khojCompassGranted) listen(); // already allowed from the sign-in prompt
+      else setNeedsPermission(true); // iPhone: wait for a tap
     } else {
       listen();
     }
     return () => {
+      window.removeEventListener("khoj:compass-granted", onGranted);
       window.removeEventListener("deviceorientationabsolute", onOrientation as EventListener, true);
       window.removeEventListener("deviceorientation", onOrientation as EventListener, true);
       started.current = false;

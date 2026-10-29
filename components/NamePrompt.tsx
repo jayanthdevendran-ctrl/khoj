@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { useVisitor } from "@/lib/visitor-store";
 import { isValidFullName } from "@/lib/names";
+import PermissionsPrompt from "@/components/PermissionsPrompt";
 
 type AuthMode = "signin" | "signup";
 
@@ -12,7 +13,7 @@ type AuthMode = "signin" | "signup";
 const TEST_ID_DOMAIN = "khoj.test";
 const FULL_NAME_MESSAGE = "Please enter your full name (first and last name).";
 
-const SCHOOL_EMAIL_MESSAGE = "Please use your school email from the NPS group, like name@npskrm.com.";
+const SCHOOL_EMAIL_MESSAGE = "That email isn't on the KHOJ list. Please use your NPS school email (for example name@npskrm.com). If you think it should work, ask a KHOJ organiser.";
 
 /** Turns database/auth errors about the access list into a clear message. */
 function friendlyAuthError(message: string): string {
@@ -160,7 +161,10 @@ export default function NamePrompt() {
 
   if (authenticated) {
     return (
-      <FullNameGate />
+      <>
+        <FullNameGate />
+        <PermissionsPrompt />
+      </>
     );
   }
 
@@ -172,7 +176,7 @@ export default function NamePrompt() {
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-teal-deep dark:text-teal-soft">KHOJ 2026 · Sign in</p>
         <h2 className="mt-2 font-display text-2xl font-bold">{mode === "signin" ? "Welcome back" : "Create your KHOJ account"}</h2>
         <p className="mt-1 text-sm text-ink/60 dark:text-paper/60">
-          Use your school email from the NPS group (name@npskrm.com) to sign in or create an account.
+          Use your NPS school email (for example name@npskrm.com) to sign in or create an account.
         </p>
         <div className="mt-4 grid grid-cols-2 rounded-full border border-line p-1 dark:border-white/15">
           <button type="button" onClick={() => { setMode("signin"); setError(null); setNotice(null); }} className={`rounded-full px-3 py-2 text-sm font-semibold ${mode === "signin" ? "bg-ink text-paper dark:bg-paper dark:text-ink" : "text-ink/60 dark:text-paper/60"}`}>Sign in</button>
@@ -194,7 +198,7 @@ export default function NamePrompt() {
               />
             </label>
           )}
-          <input type="text" inputMode="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="School email (name@npskrm.com)" autoComplete="username" className="w-full rounded-lg border border-line px-4 py-3 text-sm dark:border-white/15 dark:bg-white/5" />
+          <input type="text" inputMode="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="School email (e.g. name@npskrm.com)" autoComplete="username" className="w-full rounded-lg border border-line px-4 py-3 text-sm dark:border-white/15 dark:bg-white/5" />
           <div className="relative">
           <input type={showPassword ? "text" : "password"} required value={password} onChange={(e) => setPassword(e.target.value)} minLength={mode === "signup" ? 8 : undefined} placeholder={mode === "signup" ? "Create password (8+ characters)" : "Password"} autoComplete={mode === "signup" ? "new-password" : "current-password"} className="w-full rounded-lg border border-line py-3 pl-4 pr-16 text-sm dark:border-white/15 dark:bg-white/5" />
           <button type="button" onClick={() => setShowPassword((v) => !v)} aria-label={showPassword ? "Hide password" : "Show password"} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full px-3 py-1.5 text-xs font-semibold text-gold-deep hover:bg-mist dark:text-gold dark:hover:bg-white/10">
@@ -208,7 +212,7 @@ export default function NamePrompt() {
             {loading ? "Please wait…" : mode === "signin" ? "Sign in and explore" : "Create account"}
           </button>
         </form>
-        <p className="mt-3 text-xs text-ink/45 dark:text-paper/45">Only NPS school emails (@npskrm.com) can use KHOJ.</p>
+        <p className="mt-3 text-xs text-ink/45 dark:text-paper/45">Only approved NPS school emails (for example @npskrm.com) can use KHOJ.</p>
       </div>
     </div>
   );

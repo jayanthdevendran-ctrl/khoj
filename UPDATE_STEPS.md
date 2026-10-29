@@ -82,3 +82,9 @@ Admins are now exempt, and the admin login page explains clearly when a password
 # KHOJ update (v20) — admin Passwords tab
 1. Supabase -> SQL editor -> run  supabase/v15_migration.sql  (once; safe to re-run, after v14). Needed only for "Reset someone's password".
 2. Admin dashboard -> Passwords: reset any non-admin account's password by email, and change your own admin password (no SQL needed for that part).
+
+# KHOJ update (v21) — camera & compass prompt, email wording
+No database changes.
+- After signing in on a phone, a one-time prompt explains that the camera (and, on iPhones, motion/orientation for the compass) is needed to scan QR codes, then asks for it. Laptops are never asked.
+- Sign-in wording now says "for example name@npskrm.com" (other NPS domains such as @npshsr.com are fine if they are on the approved list).
+- Upload approved_emails_combined.csv again in Admin -> Approved emails to add the new addresses (existing ones are kept).

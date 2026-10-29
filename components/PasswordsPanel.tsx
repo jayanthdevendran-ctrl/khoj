@@ -111,7 +111,7 @@ export default function PasswordsPanel() {
         </p>
         <label className="mt-4 block text-sm font-medium">
           Email address
-          <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@npskrm.com" autoComplete="off" className={inputCls} />
+          <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="e.g. name@npskrm.com" autoComplete="off" className={inputCls} />
         </label>
         <label className="mt-3 block text-sm font-medium">
           New password
